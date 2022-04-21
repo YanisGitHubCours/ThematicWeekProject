@@ -1,79 +1,57 @@
 import express from 'express'
 import { MongoClient, ObjectId } from 'mongodb';
-import router from '../liste-contact/liste-contact.mjs';
 import 'dotenv/config'
 const app = express.Router()
-// router.post('/contact', (req, res) => {
-//     res.send('contact create')
-// })
 
-// router.get('/contact', (req, res) => {
-//     res.send("contact read")
-// })
-
-// router.patch('/contact', (req, res) => {
-//     res.send("contact update")
-// })
-
-// router.delete('/contact', (req, res) => {
-//     res.send("contact delete")
-// })
-
-app.use(express.json());
-
-let database = "db"
+let database = "EmailingDb"
 let collection = "contact"
 
-// Need to out the mongo URI in the dotenv fi
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
+
+await client.connect();
+
 (async () => {
-    await client.connect();
+    app.get('/contact/:name', async (req, res) => {
 
-    app.get('/contact', async (req, res) => {
-
-        let id = parseInt(req.params.id);
-
-        let response = await client.db(database).collection(collection).find({"userId": id}).toArray();
-
-        res.status(200).send(response);        
+        const name = req.params.name
+        const response = await client.db(database).collection(collection).find({ "name": name }).toArray();
+        res.send(response)
     });
 
-    app.delete('/contact/:id', async(req, res) => {
+    app.delete('/contact/:mail', async (req, res) => {
 
-        let id = req.params.id;
-        let oId = ObjectId(id);
+        const mail = req.params.mail;
 
-        await client.db(database).collection(collection).deleteOne({"_id": oId});
+        const response = await client.db(database).collection(collection).deleteOne({ "mail": mail });
 
-        res.status(200).send({})
+        res.send(response)
 
     })
 
     app.post('/contact', async (req, res) => {
-        let json = req.body;
-        await client.db(database).collection(collection).insertOne(json);
-		
-        res.status(200).send({})
+        const json = req.body;
+        const response = await client.db(database).collection(collection).insertOne(json);
+
+        res.send(response)
     });
 
-    app.patch('/comment/:id', async (req, res) => {
-        let id = req.params.id;
-        let oId = ObjectId(id);
+    app.patch('/contact/:id', async (req, res) => {
+        const id = parseInt(req.params.id);
+        const oId = ObjectId(id);
 
-        let json = req.body;
+        const json = req.body;
 
-        await client.db(database).collection(collection).updateOne({"_id": oId}, {$set: {"text": json.text }});
+        const response = await client.db(database).collection(collection).updateOne({ "_id": oId }, { $set: { "text": json.text } });
 
-        res.status(200).send({});
+        res.send(response);
     });
-
 })();
 
 
-export default router
+export default app
 
