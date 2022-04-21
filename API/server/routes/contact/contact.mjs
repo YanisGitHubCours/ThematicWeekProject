@@ -1,7 +1,8 @@
 import express from 'express'
-
+import { MongoClient, ObjectId } from 'mongodb';
+import router from '../liste-contact/liste-contact.mjs';
+import 'dotenv/config'
 const app = express.Router()
-
 // router.post('/contact', (req, res) => {
 //     res.send('contact create')
 // })
@@ -20,13 +21,10 @@ const app = express.Router()
 
 app.use(express.json());
 
-let database = ""
+let database = "db"
 let collection = "contact"
 
-
-const MongoClient = require("mongodb").MongoClient;
-const mongo = require("mongodb");
-// Need to out the mongo URI in the dotenv file
+// Need to out the mongo URI in the dotenv fi
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
@@ -48,7 +46,7 @@ const client = new MongoClient(uri, {
     app.delete('/contact/:id', async(req, res) => {
 
         let id = req.params.id;
-        let oId = mongo.ObjectId(id);
+        let oId = ObjectId(id);
 
         await client.db(database).collection(collection).deleteOne({"_id": oId});
 
@@ -65,7 +63,7 @@ const client = new MongoClient(uri, {
 
     app.patch('/comment/:id', async (req, res) => {
         let id = req.params.id;
-        let oId = mongo.ObjectId(id);
+        let oId = ObjectId(id);
 
         let json = req.body;
 
@@ -76,10 +74,6 @@ const client = new MongoClient(uri, {
 
 })();
 
-// demander au serveur applicatif d'attendre des requêtes depuis le port spécifié plus haut
-app.listen(PORT, () => {
-    console.log(`Example app listening at http://https://benevold.herokuapp.com/:${PORT}`);
-  });
-
 
 export default router
+
