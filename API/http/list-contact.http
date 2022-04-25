@@ -1,0 +1,25 @@
+###
+GET  http://localhost:3003/list-contact/625d911273310ed4b4558ddf HTTP/1.1
+
+###
+DELETE http://localhost:3003/list-contact/625d911273310ed4b4558ddf HTTP/1.1
+
+###
+POST http://localhost:3003/list-contact HTTP/1.1
+content-type: application/json
+
+{
+    "idContact": "625d903573310ed4b4558ddb",
+    "idList": "625d8efe73310ed4b4558dda",
+    "label": "nodejs c'est bien"
+}
+
+###
+PATCH http://localhost:3003/list-contact/625d911273310ed4b4558ddf HTTP/1.1
+content-type: application/json
+
+{
+    "idContact": "Akatsuki",
+    "idList": "Les meilleurs amis",
+    "label": "2022-02-03T23:00:00.000Z"
+}
