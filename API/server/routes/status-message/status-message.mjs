@@ -22,7 +22,7 @@ await client.connect();
         const response = await client.db(database).collection(collection).find({ "label": "Prêt" }).toArray()
 
         res.send(response)
-    });
+    })
 
     app.delete('/state/:id', async (req, res) => {
         const id = ObjectId(req.params.id)
@@ -37,11 +37,17 @@ await client.connect();
         const response = await client.db(database).collection(collection).insertOne(json);
 
         res.send(response)
-    });
+    })
 
-    // app.patch('/contact/:id', async (req, res) => {
+    app.patch('/state/:id', async (req, res) => {
+        const id = ObjectId(req.params.id)
 
-    // });
+        const json = req.body;
+
+        const response = await client.db(database).collection(collection).updateOne({ "_id": id }, { $set: { "text": json.text } });
+
+        res.send(response);
+    })
 })();
 
 
