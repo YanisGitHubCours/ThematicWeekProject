@@ -1,0 +1,25 @@
+###
+GET  http://localhost:3003/list/6266dc2a040c471b6bc0efe8 HTTP/1.1
+
+###
+DELETE http://localhost:3003/list/6266dc2a040c471b6bc0efe8 HTTP/1.1
+
+###
+POST http://localhost:3003/list HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Akatsuki",
+    "description": "Les meilleurs amis",
+    "creationDate": "2022-02-03T23:00:00.000Z"
+}
+
+###
+PATCH http://localhost:3003/list/6266dc2a040c471b6bc0efe8 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Akatsuki2.0",
+    "description": "Les meilleurs amis",
+    "creationDate": "2022-02-03T23:00:00.000Z"
+}

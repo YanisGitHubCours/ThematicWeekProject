@@ -3,6 +3,7 @@ import listecontactRouter from './routes/liste-contact/liste-contact.mjs'
 import messageRouter from './routes/message/message.mjs'
 import statusmessageRouter from './routes/status-message/status-message.mjs'
 import staticRouter from './routes/static/static.mjs'
+import listRouter from './routes/list/list.mjs'
 import express from 'express'
 import bodyparser from 'body-parser'
 import morgan from 'morgan'
@@ -23,6 +24,7 @@ app.use(listecontactRouter)
 app.use(messageRouter)
 app.use(statusmessageRouter)
 app.use(staticRouter)
+app.use(listRouter)
 //app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs))
 
 app.listen(port, () => {
