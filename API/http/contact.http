@@ -1,0 +1,29 @@
+###
+GET  http://localhost:3003/contact/Yanis HTTP/1.1
+
+###
+DELETE http://localhost:3003/contact/YanouTagri@gmail.com HTTP/1.1
+
+###
+POST http://localhost:3003/contact HTTP/1.1
+content-type: application/json
+
+{
+    "name": "orange",
+    "firstname": "pasteque",
+    "lastname": "toto",
+    "mail": "toto@gmail.com",
+    "creationDate": "2022-02-03T23:00:00.000Z"
+}
+
+###
+PATCH http://localhost:3003/contact/1 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "orange",
+    "firstname": "pasteque",
+    "lastname": "toto",
+    "mail": "toto1@gmail.com",
+    "creationDate": "2022-02-03T23:00:00.000Z"
+}
