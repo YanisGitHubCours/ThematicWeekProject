@@ -1,0 +1,16 @@
+###
+GET  http://localhost:3003/state/ HTTP/1.1
+
+###
+DELETE http://localhost:3003/state/625d91d573310ed4b4558de2 HTTP/1.1
+
+###
+POST http://localhost:3003/state/ HTTP/1.1
+content-type: application/json
+
+{
+    "label": "Prêt",
+    "messageId": "625d922773310ed4b4558de4"
+
+}
+

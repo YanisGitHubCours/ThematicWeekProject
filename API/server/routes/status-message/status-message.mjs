@@ -1,22 +1,55 @@
 import express from 'express'
+import { MongoClient, ObjectId } from 'mongodb';
+import 'dotenv/config'
+const app = express.Router()
 
-const router = express.Router()
+let database = "EmailingDb"
+let collection = "state"
 
-router.post('/status-message', (req, res) => {
-    res.send('status-message create')
-})
-
-router.get('/status-message', (req, res) => {
-    res.send("status-message read")
-})
-
-router.patch('/status-message', (req, res) => {
-    res.send("status-message update")
-})
-
-router.delete('/status-message', (req, res) => {
-    res.send("status-message delete")
-})
+const uri = process.env.MONGO_URI;
+const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 
-export default router
+await client.connect();
+
+(async () => {
+
+    app.get('/state/', async (req, res) => {
+
+        const response = await client.db(database).collection(collection).find({ "label": "Prêt" }).toArray()
+
+        res.send(response)
+    })
+
+    app.delete('/state/:id', async (req, res) => {
+        const id = ObjectId(req.params.id)
+
+        const response = await client.db(database).collection(collection).deleteOne({ "_id": id });
+
+        res.send(response)
+    })
+
+    app.post('/state', async (req, res) => {
+        const json = req.body;
+        const response = await client.db(database).collection(collection).insertOne(json);
+
+        res.send(response)
+    })
+
+    app.patch('/state/:id', async (req, res) => {
+        const id = ObjectId(req.params.id)
+
+        const json = req.body;
+
+        const response = await client.db(database).collection(collection).updateOne({ "_id": id }, { $set: { "text": json.text } });
+
+        res.send(response);
+    })
+})();
+
+
+export default app
+

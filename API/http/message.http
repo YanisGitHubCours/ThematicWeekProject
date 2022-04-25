@@ -1,0 +1,37 @@
+###
+GET  http://localhost:3003/message/6261d18adc606b65e49f50a1 HTTP/1.1
+
+###
+DELETE http://localhost:3003/message/6261d18adc606b65e49f50a1 HTTP/1.1
+
+###
+POST http://localhost:3003/message HTTP/1.1
+content-type: application/json
+
+{
+    "object": "ITS NOT A SPAM CLICK HERE",
+    "content": "https://www.twitch.tv/kamet0",
+    "sendDate": "2022-02-03T23:00:00.000Z",
+    "sendHour": "2022-02-03T23:00:00.000Z",
+    "sentDate": "2022-02-03T23:00:00.000Z",
+    "sendHour": "2022-02-03T23:00:00.000Z",
+    "idState": "1",
+    "idList": "1",
+    "idModel": "1"
+}
+
+###
+PATCH http://localhost:3003/message/6261d18adc606b65e49f50a1 HTTP/1.1
+content-type: application/json
+
+{
+    "object": "ITS NOT A SPAM CLICK HERE C'MON",
+    "content": "https://www.twitch.tv/kamet0",
+    "sendDate": "2022-02-03T23:00:00.000Z",
+    "sendHour": "2022-02-03T23:00:00.000Z",
+    "sentDate": "2022-02-03T23:00:00.000Z",
+    "sendHour": "2022-02-03T23:00:00.000Z",
+    "idState": "1",
+    "idList": "1",
+    "idModel": "1"
+}
